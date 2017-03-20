@@ -14,7 +14,8 @@ ControlPanel.propTypes = {
   onSelectBoardSize: React.PropTypes.func.isRequired,
   onSelectAlgorithms: React.PropTypes.func.isRequired,
   chosenBoard: React.PropTypes.string.isRequired,
-  chosenAlgorithms: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+  chosenAlgorithms: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  calculating: React.PropTypes.bool.isRequired
 }
 
 function ControlPanel ({
@@ -23,7 +24,8 @@ function ControlPanel ({
   onSelectBoardSize,
   onSelectAlgorithms,
   chosenBoard,
-  chosenAlgorithms
+  chosenAlgorithms,
+  calculating
 }) {
   const availableBoards = Object.keys(boards)
   const availableAlgorithms = Object.keys(implementedAlgorithms[chosenBoard])
@@ -48,12 +50,13 @@ function ControlPanel ({
           secondary
           label='Refresh'
           onClick={onPressRefresh}
+          disabled={calculating}
         />
         <RaisedButton
           primary
           label='Solve'
           onClick={onPressSolve}
-          disabled={chosenAlgorithms.length === 0}
+          disabled={calculating || chosenAlgorithms.length === 0}
         />
       </ToolbarGroup>
     </Toolbar>

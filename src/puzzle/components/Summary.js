@@ -99,7 +99,7 @@ class Summary extends Component {
                 hoverable
                 selectable
               >
-                <TableRowColumn>{idx + 1}</TableRowColumn>
+                <TableRowColumn>{this.props.summary.length - idx}</TableRowColumn>
                 <TableRowColumn>{row.boardSize}</TableRowColumn>
                 <TableRowColumn>{row.initialState}</TableRowColumn>
                 <TableRowColumn>{row.algorithm}</TableRowColumn>
@@ -110,7 +110,7 @@ class Summary extends Component {
           </TableBody>
         </Table>
         <Dialog
-          title={`Summary №${this.state.openedRow + 1}`}
+          title={`Summary №${this.props.summary.length - this.state.openedRow}`}
           modal={false}
           actions={[
             <FlatButton

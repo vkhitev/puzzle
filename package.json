@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "js-priority-queue": "^0.1.5",
+    "fastpriorityqueue": "^0.2.3",
     "material-ui": "^0.17.1",
     "normalize.css": "^5.0.0",
     "react": "^15.4.2",

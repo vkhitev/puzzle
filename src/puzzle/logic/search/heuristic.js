@@ -66,35 +66,31 @@ function linearConflicts (a, b) {
 
 function findConflicts (a, b, i, dimension) {
   let result = 0
-  const tilesRelated = new Set()
+  const tilesRelated = []
 
   let emptyPos = -1
   for (let c = 0; c < b.length; c++) {
-    if (dimension === 1 && b[i][c] === 0) {
+    if (dimension === 1 && b[i][c] === 0 ||
+        dimension === 0 && b[c][i] === 0) {
       emptyPos = c
-    } else if (dimension === 0 && b[c][i] === 0) {
-      emptyPos = c
+      break
     }
   }
-  tilesRelated.add(emptyPos)
+  tilesRelated.push(emptyPos)
 
   for (let h = 0; h < a.length - 1; h++) {
-    if (tilesRelated.has(h)) {
-      continue
-    }
     for (let k = h + 1; k < a.length; k++) {
-      if (tilesRelated.has(k)) {
+      if (tilesRelated.includes(k)) {
         continue
       }
-
       const hasConflict = dimension === 1
         ? inConflict(i, a[i][h], a[i][k], b, h, k, dimension)
         : inConflict(i, a[h][i], a[k][i], b, h, k, dimension)
 
       if (hasConflict) {
         result += 2
-        tilesRelated.add(h)
-        tilesRelated.add(k)
+        tilesRelated.push(h)
+        tilesRelated.push(k)
         break
       }
     }

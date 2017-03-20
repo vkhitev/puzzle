@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { flatten } from 'ramda'
 
 import CircularProgress from 'material-ui/CircularProgress'
 import Paper from 'material-ui/Paper'
@@ -9,14 +8,10 @@ import Puzzle from './Puzzle'
 import Path from './Path'
 import Summary from './Summary'
 
-import { boards, implementedAlgorithms } from './options'
+import { boards } from './options'
 import shuffleTiles from '../logic/search/util/shuffle-tiles'
 
-import timer from '../logic/search/util/timer'
-
-const timedSolve = timer((func, initial, goal, heuristic) => {
-  return func(initial, goal, heuristic)
-})
+const SearchWorker = require('./search-worker.js')
 
 export default class PuzzleApplication extends Component {
   state = {
@@ -30,12 +25,20 @@ export default class PuzzleApplication extends Component {
     calculating: false
   }
 
+  worker = new SearchWorker()
+
   constructor (props) {
     super(props)
-    // this.worker = new Worker('./worker.js')
-    // this.worker.addEventListener('message', () => {
-    //   console.log('Message received')
-    // })
+    this.worker.onmessage = (msg) => {
+      // Add one row to summary.
+      // If last, set calculating to false and add path block
+      const summaryRow = msg.data
+      this.setState({
+        summary: [summaryRow].concat(this.state.summary),
+        path: (msg.data.isFirst) ? summaryRow.path : this.state.path,
+        calculating: !msg.data.isLast
+      })
+    }
   }
 
   refresh = () => {
@@ -51,32 +54,13 @@ export default class PuzzleApplication extends Component {
     this.setState({
       calculating: true
     }, () => {
-      // this.worker.postMessage({
-      //   boardSize: this.state.board.name,
-      //   initial: this.state.board.tiles,
-      //   goal: boards[this.state.board.name].goal,
-      //   algorithms: this.state.algorithms
-      // })
+      this.worker.postMessage({
+        boardSize: this.state.board.name,
+        initial: this.state.board.tiles,
+        goal: boards[this.state.board.name].goal,
+        algorithms: this.state.algorithms
+      })
     })
-
-      // const newSummary = []
-      // algorithms.forEach((algorithm) => {
-      //   const { func, heuristic } = implementedAlgorithms[boardName][algorithm]
-      //   const { value, duration } = timedSolve(func, initial, goal, heuristic)
-      //   newSummary.unshift({
-      //     boardSize: boardName,
-      //     initialState: flatten(initial).join(' '),
-      //     algorithm: algorithm,
-      //     time: duration,
-      //     path: value
-      //   })
-      // })
-      // const path = newSummary[0].path
-      // this.setState({
-      //   path: path,
-      //   summary: newSummary.concat(this.state.summary),
-      //   calculating: false
-      // })
   }
 
   setBoardSize = (event, index, boardSize) => {
@@ -105,18 +89,19 @@ export default class PuzzleApplication extends Component {
           onSelectAlgorithms={this.setAlgorithms}
           chosenBoard={chosenBoard}
           chosenAlgorithms={chosenAlgorithms}
+          calculating={this.state.calculating}
         />
         <Puzzle
           boardSize={chosenBoard}
           tiles={this.state.board.tiles}
           path={this.state.path}
         />
-        {this.state.calculating &&
-        <CircularProgress />}
         {this.state.path !== null &&
         <Path
           path={this.state.path}
         />}
+        {this.state.calculating &&
+        <CircularProgress />}
         <Summary
           summary={this.state.summary}
         />

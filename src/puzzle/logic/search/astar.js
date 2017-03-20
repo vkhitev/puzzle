@@ -1,4 +1,4 @@
-import PriorityQueue from 'js-priority-queue'
+import PriorityQueue from 'fastpriorityqueue'
 import { clone } from 'ramda'
 
 import { directions, matrixIndexOf, opposite } from './util/shared'
@@ -19,14 +19,14 @@ export default function astar (initial, goal, heuristic) {
   const visited = new Set()
   visited.add(initialRepr)
 
-  const queue = new PriorityQueue({ comparator: (a, b) => a.value - b.value })
+  const queue = new PriorityQueue((a, b) => a.value < b.value)
   const initialNode = createNode(0, initial, initialRepr, erow, ecol, 0, '')
-  queue.queue(initialNode)
+  queue.add(initialNode)
 
   const size = initial.length
 
-  while (queue.length > 0) {
-    const current = queue.dequeue()
+  while (!queue.isEmpty()) {
+    const current = queue.poll()
     if (current.repr === goalRepr) {
       return current.path
     }
@@ -50,7 +50,7 @@ export default function astar (initial, goal, heuristic) {
           const newPath = current.path + dir
           const newValue = newDepth + finalHeuristic(newState)
           const newNode = createNode(newValue, newState, newStateRepr, newRow, newCol, newDepth, newPath)
-          queue.queue(newNode)
+          queue.add(newNode)
           visited.add(newStateRepr)
         }
       }
