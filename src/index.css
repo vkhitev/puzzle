@@ -1,0 +1,53 @@
+body {
+  background-color: beige;
+}
+
+.puzzle-application {
+  min-height: 700px;
+  width: 800px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.control-panel {
+  margin-bottom: 15px;
+}
+
+.no-underline div > hr {
+  display: none;
+}
+
+.board-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+.board {
+  position: relative;
+  user-select: none;
+}
+
+.board-buttons {
+  position: absolute;
+  right: -150px;
+  top: 20px;
+}
+
+.board-buttons > button {
+  display: block !important;
+  width: 100%;
+}
+
+.path {
+  text-align: center;
+  width: 400px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  overflow: hidden;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 2em;
+  word-wrap: break-word;
+}
