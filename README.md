@@ -20,15 +20,15 @@ create-react-app is unpacked in order to add Web Worker support for Webpack. We 
 
 ## Screenshots
 Initial state
-![Initial state](/screenshots/1.png)
+![Initial state](./screenshots/1.PNG)
 
 Pathes found
-![Pathes found](/screenshots/2.png)
+![Pathes found](./screenshots/2.PNG)
 
 Puzzle solved
-![Puzzle solved](/screenshots/3.png)
+![Puzzle solved](./screenshots/3.PNG)
 
 Summary row clicked
-![Summary row clicked](/screenshots/4.png)
+![Summary row clicked](./screenshots/4.PNG)
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
