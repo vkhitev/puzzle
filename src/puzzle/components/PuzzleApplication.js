@@ -79,7 +79,7 @@ export default class PuzzleApplication extends Component {
       board: { ...board, tiles },
       path: null
     })
-    this.interval = null
+    clearInterval(this.interval)
   }
 
   solve = () => {
@@ -92,7 +92,7 @@ export default class PuzzleApplication extends Component {
     this.setState({
       calculating: true
     })
-    this.interval = null
+    clearInterval(this.interval)
   }
 
   setBoardSize = (event, index, boardSize) => {
@@ -121,16 +121,20 @@ export default class PuzzleApplication extends Component {
   }
 
   stepForward = () => {
-    this.setState({
-      path: {
-        ...this.state.path,
-        position: this.state.path.position + 1
-      },
-      board: {
-        ...this.state.board,
-        tiles: this.makeNewBoard(this.state.board.tiles, this.state.path.repr[this.state.path.position + 1])
-      }
-    })
+    if (this.state.path.position + 1 !== this.state.path.repr.length) {
+      this.setState({
+        path: {
+          ...this.state.path,
+          position: this.state.path.position + 1
+        },
+        board: {
+          ...this.state.board,
+          tiles: this.makeNewBoard(this.state.board.tiles, this.state.path.repr[this.state.path.position + 1])
+        }
+      })
+    } else {
+      clearInterval(this.interval)
+    }
   }
 
   autoStep = () => {
