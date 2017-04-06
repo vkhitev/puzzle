@@ -4,8 +4,8 @@ import { clone } from 'ramda'
 import { directions, matrixIndexOf, opposite } from './util/shared'
 import validate from './util/validate'
 
-function createNode (value, state, repr, row, col, depth, path) {
-  return { value, state, repr, row, col, depth, path }
+function createNode (key, state, repr, row, col, depth, path) {
+  return { key, state, repr, row, col, depth, path }
 }
 
 export default function astar (initial, goal, heuristic) {
@@ -19,7 +19,7 @@ export default function astar (initial, goal, heuristic) {
   const visited = new Set()
   visited.add(initialRepr)
 
-  const queue = new PriorityQueue((a, b) => a.value < b.value)
+  const queue = new PriorityQueue((a, b) => a.key < b.key)
   const initialNode = createNode(0, initial, initialRepr, erow, ecol, 0, '')
   queue.add(initialNode)
 
@@ -48,8 +48,8 @@ export default function astar (initial, goal, heuristic) {
         if (!visited.has(newStateRepr)) {
           const newDepth = current.depth + 1
           const newPath = current.path + dir
-          const newValue = newDepth + finalHeuristic(newState)
-          const newNode = createNode(newValue, newState, newStateRepr, newRow, newCol, newDepth, newPath)
+          const newKey = newDepth + finalHeuristic(newState)
+          const newNode = createNode(newKey, newState, newStateRepr, newRow, newCol, newDepth, newPath)
           queue.add(newNode)
           visited.add(newStateRepr)
         }

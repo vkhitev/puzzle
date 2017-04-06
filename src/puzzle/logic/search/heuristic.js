@@ -70,8 +70,8 @@ function findConflicts (a, b, i, dimension) {
 
   let emptyPos = -1
   for (let c = 0; c < b.length; c++) {
-    if (dimension === 1 && b[i][c] === 0 ||
-        dimension === 0 && b[c][i] === 0) {
+    if ((dimension === 1 && b[i][c] === 0) ||
+        (dimension === 0 && b[c][i] === 0)) {
       emptyPos = c
       break
     }
@@ -80,20 +80,21 @@ function findConflicts (a, b, i, dimension) {
 
   for (let h = 0; h < a.length - 1; h++) {
     for (let k = h + 1; k < a.length; k++) {
-      if (tilesRelated.includes(k)) {
-        continue
-      }
+      // if (tilesRelated.includes(k)) {
+      //   continue
+      // }
       const hasConflict = dimension === 1
         ? inConflict(i, a[i][h], a[i][k], b, h, k, dimension)
         : inConflict(i, a[h][i], a[k][i], b, h, k, dimension)
 
       if (hasConflict) {
-        result += 2
-        tilesRelated.push(h)
-        tilesRelated.push(k)
+        result += 1
+        // tilesRelated.push(h)
+        // tilesRelated.push(k)
         break
       }
     }
+    tilesRelated.push(h)
   }
 
   return result

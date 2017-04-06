@@ -1,5 +1,5 @@
 import astar from '../logic/search/astar'
-// import bfs from './search/bfs'
+import bfs from '../logic/search/bfs'
 // import idastar from './search/idastar'
 import * as heuristics from '../logic/search/heuristic' // Refactor name
 
@@ -16,6 +16,9 @@ export const implementedAlgorithms = {
     'A* Linear': {
       func: astar,
       heuristic: heuristics.manhattanDistanceWithLinearConflicts
+    },
+    'BFS': {
+      func: bfs
     }
   },
   '4x4': {
