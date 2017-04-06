@@ -9,11 +9,11 @@ export default class Puzzle extends Component {
     onPressAutoStep: React.PropTypes.func.isRequired,
     boardSize: React.PropTypes.string.isRequired,
     tiles: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)).isRequired,
-    direction: React.PropTypes.string
+    direction: React.PropTypes.string,
+    isSolved: React.PropTypes.bool.isRequired
   }
 
   render () {
-    const showButtons = this.props.path !== null
     return (
       <div className='Puzzle'>
         <Board
@@ -21,7 +21,7 @@ export default class Puzzle extends Component {
           tiles={this.props.tiles}
           direction={this.props.direction}
         >
-          {showButtons &&
+          {this.props.isSolved &&
           <div className='board-buttons'>
             <FlatButton label='Step Forward' onClick={this.props.onPressStepForward} />
             <FlatButton label='Auto Step' onClick={this.props.onPressAutoStep} />

@@ -64,10 +64,10 @@ export default class PuzzleApplication extends Component {
     const summaryRow = msg.data
     this.setState({
       summary: [summaryRow].concat(this.state.summary),
-      path: {
+      path: (this.state.path === null) ? {
         repr: (msg.data.isFirst) ? summaryRow.path : this.state.path.repr,
         position: -1
-      },
+      } : this.state.path,
       calculating: !msg.data.isLast
     })
   }
@@ -164,6 +164,7 @@ export default class PuzzleApplication extends Component {
             ? this.state.path.repr.charAt(this.state.path.position)
             : null
           }
+          isSolved={this.state.path !== null}
         />
         {this.state.path !== null &&
         <Path
