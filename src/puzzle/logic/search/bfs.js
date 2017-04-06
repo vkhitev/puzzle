@@ -9,6 +9,8 @@ function createNode (state, row, col, path) {
 }
 
 export default function bfs (initial, goal) {
+  let iterations = 0
+
   validate(initial, goal)
   const [erow, ecol] = matrixIndexOf(initial, 0)
 
@@ -24,7 +26,10 @@ export default function bfs (initial, goal) {
   while (queue.getLength() > 0) {
     const current = queue.dequeue()
     if (current.state.toString() === goalRepr) {
-      return current.path
+      return {
+        path: current.path,
+        iterations
+      }
     }
     const row = current.row
     const col = current.col
@@ -42,6 +47,7 @@ export default function bfs (initial, goal) {
           const newNode = createNode(newState, newRow, newCol, newPath)
           queue.enqueue(newNode)
           visited.add(newStateRepr)
+          iterations += 1
         }
       }
     }

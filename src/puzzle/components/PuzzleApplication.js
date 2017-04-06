@@ -130,8 +130,6 @@ export default class PuzzleApplication extends Component {
         ...this.state.board,
         tiles: this.makeNewBoard(this.state.board.tiles, this.state.path.repr[this.state.path.position + 1])
       }
-    }, () => {
-
     })
   }
 

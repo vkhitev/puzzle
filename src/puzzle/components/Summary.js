@@ -27,7 +27,8 @@ class Summary extends Component {
         initialState: React.PropTypes.string.isRequired,
         algorithm: React.PropTypes.string.isRequired,
         time: React.PropTypes.number.isRequired,
-        path: React.PropTypes.string.isRequired
+        path: React.PropTypes.string.isRequired,
+        iterations: React.PropTypes.number.isRequired
       })
     ).isRequired
   }
@@ -49,6 +50,7 @@ class Summary extends Component {
         Initial State: {dataRow.initialState} <br />
         Algorithm: {dataRow.algorithm} <br />
         Time: {dataRow.time}ms <br />
+        Iterations: {dataRow.iterations} <br />
         Path: {dataRow.path}
       </span>
     )
@@ -76,7 +78,7 @@ class Summary extends Component {
             enableSelectAll={false}
           >
             <TableRow>
-              <TableHeaderColumn colSpan='6' style={styles.superHeader}>
+              <TableHeaderColumn colSpan='7' style={styles.superHeader}>
                 Summary
               </TableHeaderColumn>
             </TableRow>
@@ -87,6 +89,7 @@ class Summary extends Component {
               <TableHeaderColumn>Algorithm</TableHeaderColumn>
               <TableHeaderColumn>Path</TableHeaderColumn>
               <TableHeaderColumn>Time, ms</TableHeaderColumn>
+              <TableHeaderColumn>Iterations</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody
@@ -105,6 +108,7 @@ class Summary extends Component {
                 <TableRowColumn>{row.algorithm}</TableRowColumn>
                 <TableRowColumn>{row.path}</TableRowColumn>
                 <TableRowColumn>{row.time}</TableRowColumn>
+                <TableRowColumn>{row.iterations}</TableRowColumn>
               </TableRow>
             ))}
           </TableBody>

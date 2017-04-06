@@ -9,6 +9,8 @@ function createNode (key, state, repr, row, col, depth, path) {
 }
 
 export default function astar (initial, goal, heuristic) {
+  let iterations = 0
+
   validate(initial, goal)
   const finalHeuristic = heuristic(goal)
   const [erow, ecol] = matrixIndexOf(initial, 0)
@@ -28,7 +30,10 @@ export default function astar (initial, goal, heuristic) {
   while (!queue.isEmpty()) {
     const current = queue.poll()
     if (current.repr === goalRepr) {
-      return current.path
+      return {
+        path: current.path,
+        iterations
+      }
     }
     const row = current.row
     const col = current.col
@@ -52,6 +57,7 @@ export default function astar (initial, goal, heuristic) {
           const newNode = createNode(newKey, newState, newStateRepr, newRow, newCol, newDepth, newPath)
           queue.add(newNode)
           visited.add(newStateRepr)
+          iterations += 1
         }
       }
     }

@@ -36,7 +36,8 @@ onmessage = function (msg) {
       initialState: flatten(initial).join(' '),
       algorithm: algorithm,
       time: time,
-      path: invertPath(value),
+      path: invertPath(value.path),
+      iterations: value.iterations,
       isLast: (i === algorithms.length - 1),
       isFirst: (i === 0)
     })
