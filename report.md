@@ -58,16 +58,16 @@ m - максимальная длина любого из путей в прос
 
 ## Результаты проведения серии экспериментов
 Алгоритм BFS
-![Summary row clicked](./screenshots/report/1.PNG)
+![Summary row clicked](./screenshots/report/1.png)
 
 Алгоритм A* с эвристикой - расстоянием Хэмминга
-![Summary row clicked](./screenshots/report/2.PNG)
+![Summary row clicked](./screenshots/report/2.png)
 
 Алгоритм A* с эвристикой - манхеттенским расстоянием
-![Summary row clicked](./screenshots/report/3.PNG)
+![Summary row clicked](./screenshots/report/3.png)
 
 Алгоритм A* с эвристикой - манхеттенским расстоянием с учётом линейных конфликтов
-![Summary row clicked](./screenshots/report/4.PNG)
+![Summary row clicked](./screenshots/report/4.png)
 
 ## Анализ полученных результатов
 Сравнивая скорости нахождения оптимального решения, делаем вывод, что алгоритм информативного поиска A* находит такое решение намного быстрее алгоритма неинформативного поиска BFS.
