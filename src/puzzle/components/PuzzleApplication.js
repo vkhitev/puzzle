@@ -138,7 +138,9 @@ export default class PuzzleApplication extends Component {
   }
 
   autoStep = () => {
-    this.interval = setInterval(this.stepForward, 1000)
+    if (!this.interval) {
+      this.interval = setInterval(this.stepForward, 1000)
+    }
   }
 
   render () {
